@@ -1226,14 +1226,16 @@ async function renderExercise(ex){
     const previaText = prevSet && (prevSet.kg!=null || prevSet.reps!=null)
       ? `${prevSet.kg ?? '-'} x ${prevSet.reps ?? '-'}` : '—';
     const isPR = cur.kg && cur.kg >= best && best > 0 && cur.kg === best;
+    const shownKg = cur.kg ?? (prevSet && prevSet.kg!=null ? prevSet.kg : '');
+    const shownReps = cur.reps ?? (prevSet && prevSet.reps!=null ? prevSet.reps : '');
     rows += `
       <tr>
         <td><div class="serie-badge">${i+1}</div></td>
         <td><div class="previa">${previaText}</div></td>
-        <td><input class="numin" type="number" inputmode="decimal" placeholder="${prevSet && prevSet.kg!=null ? prevSet.kg : '--'}"
-             value="${cur.kg ?? ''}" data-ex="${ex.id}" data-set="${i}" data-field="kg"></td>
-        <td><input class="numin" type="number" inputmode="numeric" placeholder="${prevSet && prevSet.reps!=null ? prevSet.reps : (ex.target)}"
-             value="${cur.reps ?? ''}" data-ex="${ex.id}" data-set="${i}" data-field="reps"></td>
+        <td><input class="numin" type="number" inputmode="decimal" placeholder="--"
+             value="${shownKg}" data-ex="${ex.id}" data-set="${i}" data-field="kg"></td>
+        <td><input class="numin" type="number" inputmode="numeric" placeholder="${ex.target}"
+             value="${shownReps}" data-ex="${ex.id}" data-set="${i}" data-field="reps"></td>
         <td><div class="checkbtn ${cur.done?'done':''}" data-ex="${ex.id}" data-set="${i}">✓</div></td>
       </tr>`;
   }
